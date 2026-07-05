@@ -29,6 +29,7 @@ const THEMES = [
     colorNames: ['Background', 'Gold Accent', 'CTA Red', 'Text'],
     description:
       'Dark gold theme สไตล์คาสิโนคลาสสิก เหมาะสำหรับ brand ที่ต้องการความหรูหราและน่าเชื่อถือ',
+    noteUrl: 'https://ufa24h-laos.com/',
     img: "https://res.cloudinary.com/dx0uy9ozk/image/upload/f_auto,q_auto/24h_cthu4f",
   },
   {
@@ -40,6 +41,7 @@ const THEMES = [
     colorNames: ['Background', 'Amber Primary', 'Gold Highlight', 'Text'],
     description:
       'Modern dark theme กับ amber accent ดีไซน์สะอาด เหมาะกับ brand สาย premium',
+    noteUrl: '#',
     img: "https://res.cloudinary.com/dx0uy9ozk/image/upload/v1781615307/gg-golden-001_ejatx4.webp",
   },
   {
@@ -51,6 +53,7 @@ const THEMES = [
     colorNames: ['Hot Pink', 'Rose Gold', 'Background', 'Text'],
     description:
       'Pink & rose gold theme สดใสโดดเด่น เหมาะกับ brand ที่ต้องการจับกลุ่ม lifestyle หรือ feminine',
+    noteUrl: '#',
     img: "https://res.cloudinary.com/dx0uy9ozk/image/upload/v1781615487/rose-gold-royal_ovjdr8.webp",
   },
   {
@@ -62,6 +65,7 @@ const THEMES = [
     colorNames: ['Deep Red', 'Primary Red', 'Gold Accent', 'Text'],
     description:
       'Bold red theme พลังแรงสไตล์ sport betting เหมาะกับ brand ที่ต้องการความมั่นใจ',
+    noteUrl: 'https://s2k-won.bet/',
     img: "https://res.cloudinary.com/dx0uy9ozk/image/upload/v1781615507/s2k_w69wht.webp",
   },
   {
@@ -73,6 +77,7 @@ const THEMES = [
     colorNames: ['Black', 'Dark Gold', 'Bright Gold', 'Muted Text'],
     description:
       'Ultra dark luxury theme สีดำลึกกับ dark gold accent ความหรูหราระดับ premium สุดๆ',
+    noteUrl: 'https://ufa11k-laos.com/',
     img: "https://res.cloudinary.com/dx0uy9ozk/image/upload/v1781615549/gg-golden-001_sp6quk.webp",
   },
   {
@@ -84,6 +89,7 @@ const THEMES = [
     colorNames: ['Background', 'Yellow Accent', 'Card BG', 'Text'],
     description:
       'Dark clean theme กับ yellow accent ดีไซน์โมเดิร์น เน้น UX ที่ดีและ readability',
+    noteUrl: 'https://zeed888.co/',
     img: "https://res.cloudinary.com/dx0uy9ozk/image/upload/v1781615565/zeed_d4xcmf.webp",
   },
   {
@@ -95,6 +101,7 @@ const THEMES = [
     colorNames: ['Primary Red', 'Light Red', 'Dark Red', 'Text'],
     description:
       'Dynamic red gradient theme สไตล์ action ดูมีมิติ เหมาะกับ brand ที่ต้องการความ dynamic',
+    noteUrl: 'https://fifa789laos.com/',
     img: "https://res.cloudinary.com/dx0uy9ozk/image/upload/v1781615577/Azor_u5lllo.webp",
   },
 ];
@@ -187,6 +194,20 @@ export default function App() {
               <p className="text-zinc-400 text-xs leading-relaxed mb-3">
                 {theme.description}
               </p>
+              {theme.noteUrl && (
+                <p className="text-xs mb-3">
+                  <span className="text-zinc-500">หมายเหตุ: </span>
+                  <a
+                    href={theme.noteUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={(e) => e.stopPropagation()}
+                    className="text-amber-400 hover:text-amber-300 underline underline-offset-2"
+                  >
+                    {theme.noteUrl}
+                  </a>
+                </p>
+              )}
               <div className="flex flex-wrap gap-1 mb-3">
                 {theme.tags.map((tag) => (
                   <span
@@ -256,6 +277,19 @@ export default function App() {
                 <p className="text-zinc-300 text-sm leading-relaxed mb-3">
                   {selected.description}
                 </p>
+                {selected.noteUrl && (
+                  <p className="text-sm mb-3">
+                    <span className="text-zinc-500">หมายเหตุ: </span>
+                    <a
+                      href={selected.noteUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-amber-400 hover:text-amber-300 underline underline-offset-2"
+                    >
+                      {selected.noteUrl}
+                    </a>
+                  </p>
+                )}
                 <div className="flex flex-wrap gap-1.5">
                   {selected.tags.map((tag) => (
                     <span
