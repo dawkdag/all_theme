@@ -172,11 +172,11 @@ export default function App() {
             onClick={() => setSelected(theme)}
             className="group cursor-pointer rounded-xl overflow-hidden border border-zinc-800 hover:border-amber-500 transition-all duration-200 bg-zinc-900 hover:shadow-xl"
           >
-            <div className="relative overflow-hidden h-40">
+            <div className="relative overflow-hidden h-72 md:h-80 bg-black">
               <img
                 src={theme.img}
                 alt={theme.name}
-                className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-300"
+                className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-zinc-900/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-end p-3">
                 <span className="text-white text-xs font-medium">
@@ -245,7 +245,7 @@ export default function App() {
           onClick={() => setSelected(null)}
         >
           <div
-            className="bg-zinc-900 border border-zinc-700 rounded-2xl w-full max-w-3xl overflow-hidden shadow-2xl"
+            className="bg-zinc-900 border border-zinc-700 rounded-2xl w-full max-w-5xl overflow-hidden shadow-2xl"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex items-center justify-between px-6 py-4 border-b border-zinc-800">
@@ -268,8 +268,8 @@ export default function App() {
               <img
                 src={selected.img}
                 alt={selected.name}
-                className="rounded-lg w-full object-cover object-top border border-zinc-800"
-                style={{ maxHeight: '420px' }}
+                className="rounded-lg w-full object-contain border border-zinc-800 bg-black"
+                style={{ maxHeight: 'calc(100vh - 240px)' }}
               />
             </div>
             <div className="px-6 py-4 border-t border-zinc-800 flex flex-wrap gap-6 items-start">
