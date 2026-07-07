@@ -1,4 +1,15 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+
+import img24h from './assets/24h.jpg';
+import imgAzorDarkGold from './assets/azor-dark-gold.jpg';
+import imgazor from './assets/azor.jpg';
+import imgGGGolden001 from './assets/gg-golden-001.jpg';
+import imgRoseGoldRoyal from './assets/rose-gold-royal.jpg';
+import imgS2KDark from './assets/s2k-dark-gold.jpg';
+import imgS2K from './assets/s2k.jpg';
+import imgSingGreenGold from './assets/sing-green-gold.jpg';
+import imgUfaGolden001 from './assets/ufa-golden-001.jpg';
+import imgZeed from './assets/zeed.jpg';
 
 const tagColors = {
   Dark: 'bg-gray-700 text-gray-200',
@@ -30,7 +41,7 @@ const THEMES = [
     description:
       'Dark gold theme สไตล์คาสิโนคลาสสิก เหมาะสำหรับ brand ที่ต้องการความหรูหราและน่าเชื่อถือ',
     noteUrl: 'https://ufa24h-laos.com/',
-    img: "https://res.cloudinary.com/dx0uy9ozk/image/upload/f_auto,q_auto/24h_cthu4f",
+    img: img24h,
   },
   {
     id: 'gg-golden-001',
@@ -42,7 +53,7 @@ const THEMES = [
     description:
       'Modern dark theme กับ amber accent ดีไซน์สะอาด เหมาะกับ brand สาย premium',
     noteUrl: '#',
-    img: "https://res.cloudinary.com/dx0uy9ozk/image/upload/v1781615307/gg-golden-001_ejatx4.webp",
+    img: imgGGGolden001,
   },
   {
     id: 'rose-gold-royal',
@@ -54,7 +65,7 @@ const THEMES = [
     description:
       'Pink & rose gold theme สดใสโดดเด่น เหมาะกับ brand ที่ต้องการจับกลุ่ม lifestyle หรือ feminine',
     noteUrl: '#',
-    img: "https://res.cloudinary.com/dx0uy9ozk/image/upload/v1781615487/rose-gold-royal_ovjdr8.webp",
+    img: imgRoseGoldRoyal,
   },
   {
     id: 's2k',
@@ -66,7 +77,7 @@ const THEMES = [
     description:
       'Bold red theme พลังแรงสไตล์ sport betting เหมาะกับ brand ที่ต้องการความมั่นใจ',
     noteUrl: 'https://s2k-won.bet/',
-    img: "https://res.cloudinary.com/dx0uy9ozk/image/upload/v1781615507/s2k_w69wht.webp",
+    img: imgS2K,
   },
   {
     id: 'ufa-golden-001',
@@ -78,7 +89,7 @@ const THEMES = [
     description:
       'Ultra dark luxury theme สีดำลึกกับ dark gold accent ความหรูหราระดับ premium สุดๆ',
     noteUrl: 'https://ufa11k-laos.com/',
-    img: "https://res.cloudinary.com/dx0uy9ozk/image/upload/v1781615549/gg-golden-001_sp6quk.webp",
+    img: imgUfaGolden001,
   },
   {
     id: 'zeed',
@@ -90,7 +101,7 @@ const THEMES = [
     description:
       'Dark clean theme กับ yellow accent ดีไซน์โมเดิร์น เน้น UX ที่ดีและ readability',
     noteUrl: 'https://zeed888.co/',
-    img: "https://res.cloudinary.com/dx0uy9ozk/image/upload/v1781615565/zeed_d4xcmf.webp",
+    img: imgZeed,
   },
   {
     id: 'azor',
@@ -102,14 +113,29 @@ const THEMES = [
     description:
       'Dynamic red gradient theme สไตล์ action ดูมีมิติ เหมาะกับ brand ที่ต้องการความ dynamic',
     noteUrl: 'https://fifa789laos.com/',
-    img: "https://res.cloudinary.com/dx0uy9ozk/image/upload/v1781615577/Azor_u5lllo.webp",
+    img: imgazor,
+  },
+   {
+    id: 's2k-dark-gold',
+    name: 'S2K Dark Gold',
+    slug: 's2k-dark-gold',
+    tags: ['Black', 'Gold', 'Elegant'],
+    colors: ['#0D0D0D', '#FFC107', '#1A1A1A', '#ffffff'],
+    colorNames: ['Deep Black', 'Gold Accent', 'Dark Panel', 'Text'],
+    description:
+       'ธีมดำ-ทองหรูหรา พื้นหลังดำสนิทตัดกับเส้นขอบและจุดไฮไลต์สีทอง ให้ความรู้สึกพรีเมียม เหมาะกับ brand ที่ต้องการความ exclusive และน่าเชื่อถือ',
+    noteUrl: '#',
+    img: imgS2KDark,
   },
 ];
+
+const ITEMS_PER_PAGE = 8;
 
 export default function App() {
   const [selected, setSelected] = useState(null);
   const [search, setSearch] = useState('');
   const [activeTag, setActiveTag] = useState('All');
+  const [currentPage, setCurrentPage] = useState(1);
 
   const allTags = [
     'All',
@@ -123,6 +149,22 @@ export default function App() {
     const matchTag = activeTag === 'All' || t.tags.includes(activeTag);
     return matchSearch && matchTag;
   });
+
+  const totalPages = Math.max(1, Math.ceil(filtered.length / ITEMS_PER_PAGE));
+  const paginatedThemes = filtered.slice(
+    (currentPage - 1) * ITEMS_PER_PAGE,
+    currentPage * ITEMS_PER_PAGE
+  );
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [search, activeTag]);
+
+  useEffect(() => {
+    if (currentPage > totalPages) {
+      setCurrentPage(totalPages);
+    }
+  }, [currentPage, totalPages]);
 
   return (
     <div
@@ -166,7 +208,7 @@ export default function App() {
       </div>
 
       <div className="p-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
-        {filtered.map((theme) => (
+        {paginatedThemes.map((theme) => (
           <div
             key={theme.id}
             onClick={() => setSelected(theme)}
@@ -234,6 +276,39 @@ export default function App() {
           </div>
         ))}
       </div>
+
+      {filtered.length === 0 && (
+        <p className="px-6 pb-6 text-sm text-zinc-500">No themes found.</p>
+      )}
+
+      {filtered.length > 0 && (
+        <div className="px-6 pb-6 flex flex-wrap items-center justify-between gap-3">
+          <p className="text-xs text-zinc-500">
+            Showing {(currentPage - 1) * ITEMS_PER_PAGE + 1}-
+            {Math.min(currentPage * ITEMS_PER_PAGE, filtered.length)} of{' '}
+            {filtered.length}
+          </p>
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+              disabled={currentPage === 1}
+              className="px-3 py-1.5 rounded-lg text-sm bg-zinc-800 text-zinc-200 hover:bg-zinc-700 disabled:opacity-40 disabled:cursor-not-allowed"
+            >
+              Prev
+            </button>
+            <span className="text-sm text-zinc-400 min-w-16 text-center">
+              {currentPage} / {totalPages}
+            </span>
+            <button
+              onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
+              disabled={currentPage === totalPages}
+              className="px-3 py-1.5 rounded-lg text-sm bg-zinc-800 text-zinc-200 hover:bg-zinc-700 disabled:opacity-40 disabled:cursor-not-allowed"
+            >
+              Next
+            </button>
+          </div>
+        </div>
+      )}
 
       {selected && (
         <div
