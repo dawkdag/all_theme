@@ -302,7 +302,7 @@ export default function App() {
       </div>
 
       <div className="p-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
-        {filtered.map((theme) => (
+        {filtered.map((theme, index) => (
           <div
             key={theme.id}
             onClick={() => setSelected(theme)}
@@ -314,6 +314,9 @@ export default function App() {
                 alt={theme.name}
                 className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300"
               />
+              <div className="absolute top-2 left-2 bg-zinc-900/80 text-zinc-400 text-xs font-mono px-1.5 py-0.5 rounded">
+                #{index + 1}
+              </div>
               <div className="absolute inset-0 bg-gradient-to-t from-zinc-900/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-end p-3">
                 <span className="text-white text-xs font-medium">
                   Click to preview →
