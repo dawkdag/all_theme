@@ -246,6 +246,26 @@ export default function App() {
   const [selected, setSelected] = useState(null);
   const [search, setSearch] = useState('');
   const [activeTag, setActiveTag] = useState('All');
+  const [copiedCode, setCopiedCode] = useState('');
+
+  const getThemeCode = (theme, index) => {
+    const number = String(index + 1).padStart(2, '0');
+    return `#GG${number}`;
+  };
+
+  const handleCopyThemeCode = async (e, code) => {
+    e.stopPropagation();
+    try {
+      await navigator.clipboard.writeText(code);
+      setCopiedCode(code);
+      window.setTimeout(() => {
+        setCopiedCode((prev) => (prev === code ? '' : prev));
+      }, 1500);
+    } catch (err) {
+      // Clipboard can fail in restricted contexts; fail silently.
+      console.error('Failed to copy theme code:', err);
+    }
+  };
 
   const allTags = [
     'All',
@@ -321,9 +341,21 @@ export default function App() {
               </div>
             </div>
             <div className="p-4">
-              <h2 className="font-semibold text-white text-sm mb-0.5">
-                {index + 1} | {theme.name}
-              </h2>
+              <div className="flex items-center justify-between gap-2 mb-0.5">
+                <h2 className="font-semibold text-white text-sm truncate">
+                  {getThemeCode(theme, index)} | {theme.name}
+                </h2>
+                <button
+                  type="button"
+                  onClick={(e) => handleCopyThemeCode(e, getThemeCode(theme, index))}
+                  className="shrink-0 text-xs px-2.5 py-1 rounded-md font-semibold border border-amber-400/70 bg-amber-400/20 text-amber-200 hover:bg-amber-400 hover:text-black hover:border-amber-300 focus:outline-none focus:ring-2 focus:ring-amber-400/70"
+                  title={`Copy ${getThemeCode(theme, index)}`}
+                >
+                  {copiedCode === getThemeCode(theme, index)
+                    ? 'Copied'
+                    : 'Copy'}
+                </button>
+              </div>
               <p className="text-zinc-500 text-xs font-mono mb-2">
                 {theme.slug}
               </p>
