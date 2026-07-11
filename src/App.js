@@ -151,7 +151,7 @@ const THEMES = [
     colorNames: ['Dark Crimson BG', 'Gold Accent', 'Deep Red', 'Text'],
     description:
       'Crimson dark theme กับ gold accent หรูหราแบบ dark luxury เหมาะกับ brand ที่ต้องการความ exclusive สไตล์ dark casino',
-    noteUrl: '#',
+    noteUrl: 'https://ufagold-laos.com/',
     img: imgAzorDarkGold,
   },
   {
@@ -163,7 +163,7 @@ const THEMES = [
     colorNames: ['Dark Green BG', 'Green Accent', 'Gold Highlight', 'Text'],
     description:
       'Dark green & gold theme ความสดชื่นพร้อมความหรูหรา เหมาะกับ brand ที่ต้องการความแตกต่างจากธีมแดง-ทองทั่วไป',
-    noteUrl: '#',
+    noteUrl: 'https://sing777-auto.com/',
     img: imgSingGreenGold,
   },
   {
@@ -175,7 +175,7 @@ const THEMES = [
     colorNames: ['Dark BG', 'Orange Accent', 'Card BG', 'Text'],
     description:
       'Dark theme กับ vibrant orange accent พลังงานสูง ดูมีพลัง เหมาะกับ brand ที่ต้องการโทนสีที่ดูแตกต่างและโดดเด่น',
-    noteUrl: '#',
+    noteUrl: 'https://laosvegas888-auto.com/',
     img: imgDarkOrange,
   },
   {
@@ -187,7 +187,7 @@ const THEMES = [
     colorNames: ['White BG', 'Orange Accent', 'Light Card', 'Text'],
     description:
       'Light theme สะอาดสดใสกับ orange accent เหมาะกับ brand ที่ต้องการ UI ที่ดูเปิดโล่ง อ่านง่าย ไม่หนักตา',
-    noteUrl: '#',
+    noteUrl: 'https://fun2play-mega.com/',
     img: imgWhiteOrange,
   },
   {
@@ -199,7 +199,7 @@ const THEMES = [
     colorNames: ['Almost Black', 'Maroon', 'Deep Maroon', 'Warm White'],
     description:
       'Deep maroon & dark theme ความหรูหราแบบ wine & dine สไตล์ exclusive VIP ให้ความรู้สึก upscale สุดๆ',
-    noteUrl: '#',
+    noteUrl: 'https://ufa191-auto.com/',
     img: imgDarkMaroon,
   },
   {
@@ -211,7 +211,7 @@ const THEMES = [
     colorNames: ['Light Blue BG', 'Blue Accent', 'Deep Blue', 'Dark Text'],
     description:
       'Light blue lottery theme สะอาดสดใส เน้น lottery/lotto สไตล์ไทย เหมาะกับเว็บหวยหรือเกมส์ที่ต้องการ UI สว่างอ่านง่าย',
-    noteUrl: '#',
+    noteUrl: 'https://hauychokd-auto.com/',
     img: imgHuayChokdy,
   },
   {
@@ -251,6 +251,11 @@ export default function App() {
   const getThemeCode = (theme, index) => {
     const number = String(index + 1).padStart(2, '0');
     return `#GG${number}`;
+  };
+
+  const getThemeCodeByTheme = (theme) => {
+    const themeIndex = THEMES.findIndex((t) => t.id === theme.id);
+    return getThemeCode(theme, themeIndex === -1 ? 0 : themeIndex);
   };
 
   const handleCopyThemeCode = async (e, code) => {
@@ -423,18 +428,28 @@ export default function App() {
             <div className="flex items-center justify-between px-6 py-4 border-b border-zinc-800">
               <div>
                 <h2 className="font-bold text-lg text-white">
-                  {selected.name}
+                  {getThemeCodeByTheme(selected)} | {selected.name}
                 </h2>
                 <p className="text-zinc-400 text-xs font-mono">
                   {selected.slug}
                 </p>
               </div>
-              <button
-                onClick={() => setSelected(null)}
-                className="text-zinc-500 hover:text-white text-2xl w-8 h-8 flex items-center justify-center"
-              >
-                ✕
-              </button>
+              <div className="flex items-center gap-2">
+                <button
+                  type="button"
+                  onClick={(e) => handleCopyThemeCode(e, getThemeCodeByTheme(selected))}
+                  className="shrink-0 text-xs px-2.5 py-1 rounded-md font-semibold border border-amber-400/70 bg-amber-400/20 text-amber-200 hover:bg-amber-400 hover:text-black hover:border-amber-300 focus:outline-none focus:ring-2 focus:ring-amber-400/70"
+                  title={`Copy ${getThemeCodeByTheme(selected)}`}
+                >
+                  {copiedCode === getThemeCodeByTheme(selected) ? 'Copied' : 'Copy'}
+                </button>
+                <button
+                  onClick={() => setSelected(null)}
+                  className="text-zinc-500 hover:text-white text-2xl w-8 h-8 flex items-center justify-center"
+                >
+                  ✕
+                </button>
+              </div>
             </div>
             <div className="bg-zinc-950 p-4">
               <img
